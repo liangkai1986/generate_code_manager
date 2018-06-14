@@ -1,11 +1,11 @@
 <project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
   xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
   <modelVersion>4.0.0</modelVersion>
-  <groupId>com.demo</groupId>
-  <artifactId>generate_code_manager</artifactId>
+  <groupId>com</groupId>
+  <artifactId>generate_code_manager_java</artifactId>
   <packaging>war</packaging>
   <version>3.2</version>
-  <name>generate_code_manager</name>
+  <name>generate_code_manager_java</name>
   <url>http://maven.apache.org</url>
   
   <properties>
@@ -91,7 +91,7 @@
   </dependencies>
   
   <build>
-    <finalName>jfinal_demo_for_maven</finalName>
+    <finalName>generate_code_manager_java</finalName>
 	    <plugins>
 		  <plugin>
 		    <groupId>org.mortbay.jetty</groupId>
