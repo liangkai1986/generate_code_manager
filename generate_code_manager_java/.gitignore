@@ -1,1 +1,6 @@
 /target/
+/generate_code_manager.log
+/.classpath
+/.gitignore
+/.project
+/.settings/
