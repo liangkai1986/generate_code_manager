@@ -7,6 +7,6 @@ public class RouteConfig extends Routes{
 
 	@Override
 	public void config() {
-		add("/", TestController.class,"/");
+		add("/test", TestController.class);
 	}
 }
