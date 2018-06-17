@@ -18,6 +18,7 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("jdbc_config", "jdbc_config_id", JdbcConfig.class);
 		arp.addMapping("project", "project_id", Project.class);
+		arp.addMapping("template", "template_id", Template.class);
 	}
 }
 
