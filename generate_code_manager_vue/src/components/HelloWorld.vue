@@ -1,39 +1,17 @@
 <template>
-
-  <div class="hello">
-    <h1 v-on:click="a()">{{ msg }}aa</h1>
-        <img src="@/staticss/layui/images/face/66.gif">
-  </div>
+  <el-radio-group v-model="radio2">
+    <el-radio :label="3">备选项</el-radio>
+    <el-radio :label="6">备选项</el-radio>
+    <el-radio :label="9">备选项</el-radio>
+  </el-radio-group>
 </template>
 
-
-
-
-
-  
 <script>
-import '@/staticss/layui/layui.all.js'
-export default {
-  name: 'HelloWorld',
-  data () {
-    return {
-      msg: 'Welcome to Your Vue.js App'
-    }
-  },methods:{
-    a(){
-      //alert("aaaaa");
-console.log("aaaaa");  
-
-  layer.msg('Hello World');
-      layer.msg("aaaaaaaa");
+  export default {
+    data () {
+      return {
+        radio2: 3
+      };
     }
   }
-}
-
 </script>
-
-<style>
-
-</style>
-
-<!-- Add "scoped" attribute to limit CSS to this component only -->

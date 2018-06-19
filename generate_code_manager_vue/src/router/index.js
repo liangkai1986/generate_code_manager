@@ -1,16 +1,22 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 import HelloWorld from '@/components/HelloWorld'
+import jdbcConfigList from '@/components/jdbc_config/jdbc_config_list'
 
 Vue.use(Router)
 
 export default new Router({
-  mode:"history",
+  mode: "history",
   routes: [
     {
       path: '/',
       name: 'HelloWorld',
       component: HelloWorld
+    },
+    {
+      path: "/jdbcConfigList",
+      name: 'jdbcConfigList',
+      component: jdbcConfigList
     }
   ]
 
