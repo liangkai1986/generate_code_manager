@@ -1,5 +1,6 @@
 package com.code.config;
 
+import com.code.interceptor.BaseInterceptor;
 //import com.code.handler.BaseHandler;
 //import com.code.interceptor.LoginInterceptor;
 import com.code.model._MappingKit;
@@ -42,7 +43,6 @@ public class Config extends JFinalConfig {
 //		me.addSharedFunction("/common/_layout.html");
 //		me.addSharedFunction("/common/_paginate.html");
 	}
-	
 	/**
 	 * 配置插件
 	 */
@@ -65,7 +65,7 @@ public class Config extends JFinalConfig {
 	 * 配置全局拦截器
 	 */
 	public void configInterceptor(Interceptors me) {
-//		me.add(new LoginInterceptor());
+		me.add(new BaseInterceptor());
 	}
 	
 	/**
