@@ -2,10 +2,17 @@
   <el-container>
     <el-header>增加jdbc{{msg}}</el-header>
     <el-main>列表
-          <el-table :data="tableData" height="500" border style="width: 100%">
-            <el-table-column prop="jdbc_config_id" label="日期" width="120"  header-align="center"></el-table-column>
-            <el-table-column prop="date" label="日期" width="120"  header-align="center"></el-table-column>
-            <el-table-column prop="date" label="日期" width="120"  header-align="center"></el-table-column>
+          <el-table :data="tableData" height="500" border style="width: 80%">
+            <el-table-column prop="jdbc_config_id" label="id" width="50"  header-align="center"></el-table-column>
+            <el-table-column prop="user" label="账号" width="100"  header-align="center"></el-table-column>
+            <el-table-column prop="password" label="密码" width="230"  header-align="center"></el-table-column>
+            <el-table-column prop="jdbcUrl" label="链接" width="520"  header-align="center"></el-table-column>
+            <el-table-column prop="jdbcUrl" label="操作" width="150"  header-align="center">
+              <template slot-scope="scope">
+                <el-button @click="handleClick(scope.row)" type="text" size="small">删除{{scope.row.jdbc_config_id}}</el-button>
+                <el-button type="text" size="small">编辑</el-button>
+              </template>
+            </el-table-column>
           </el-table>
     </el-main>
   </el-container>
@@ -26,17 +33,28 @@ export default {
   },
   methods: {
     getList: function() {
-      alert("dd"+this.msg);
+      var thisVar = this;
       this.$http
         .post("/jdbcConfig/list")
         .then(function(response) {
-          console.log(this.msg);
-          this.msg="ddddddddd";
-          console.log(response.data[0]);
-          console.log(response.data[0].jdbc_config_id);
-          VM.tableData.push({
-            "jdbc_config_id": response.data[0].jdbc_config_id
-          });
+   
+          if (response.data.ok) {
+            thisVar.tableData = response.data.data;
+          } else {
+            alert(response.data.msg);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          alert("网络错误");
+        });
+    },
+    delJdbcConfig: function(id) {
+      this.$http
+        .post("/jdbcConfig/del")
+        .then(function(response) {
+          console.log(response.data.data);
+          thisVar.tableData = response.data.data;
         })
         .catch(function(error) {
           console.log(error);
