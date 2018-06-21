@@ -14,7 +14,7 @@ Vue.config.productionTip = false
 
 
 import axios from 'axios'
-axios.defaults.baseURL = 'http://127.0.0.1:8081/generate_code_manager_java';
+axios.defaults.baseURL = 'http://127.0.0.1:8083/generate_code_manager_java';
 
 Vue.prototype.$http = axios
 
