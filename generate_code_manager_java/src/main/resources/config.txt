@@ -1,4 +1,4 @@
-jdbcUrl = jdbc:mysql://localhost/jfinal_demo?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
-user = root
-password = root
+jdbcUrl = jdbc:mysql://122.152.224.74/generate_code_manager?characterEncoding=utf8&zeroDateTimeBehavior=convertToNull
+user = gcm
+password = gcm
 devMode = true
