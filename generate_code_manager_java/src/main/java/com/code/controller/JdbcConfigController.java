@@ -12,5 +12,23 @@ public class JdbcConfigController extends BaseController{
 		JdbcConfig.dao.deleteById(getPara("id"));
 		renderJson(new ResultData());
 	}
-	
+	public void get() {
+		renderJson(new ResultData().setData(JdbcConfig.dao.findById(getPara("id"))));
+	}
+	public void saveUpdate(){
+		JdbcConfig jdbcConfig = new JdbcConfig();
+		
+		jdbcConfig.setName(getPara("name"));
+		jdbcConfig.setUser(getPara("user"));
+		jdbcConfig.setPassword(getPara("password"));
+		jdbcConfig.setJdbcUrl(getPara("jdbcUrl"));
+		if(getPara("jdbcConfigId") == null){
+			jdbcConfig.save();
+		}else{
+			jdbcConfig.setJdbcConfigId(getParaToInt("jdbcConfigId"));
+			jdbcConfig.update();
+		}
+		
+		renderNull();
+	}
 }

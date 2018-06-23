@@ -7,7 +7,16 @@ public class BaseInterceptor implements Interceptor{
 
 	public void intercept(Invocation inv) {
 		inv.getController().getResponse().addHeader("Access-Control-Allow-Origin", "*");	
-		inv.invoke();
+		inv.getController().getResponse().setHeader("Access-Control-Allow-Methods", "GET, POST, OPTIONS, PUT, PATCH, DELETE");
+		    // Request headers you wish to allow
+		inv.getController().getResponse().setHeader("Access-Control-Allow-Headers", "*");
+		String method = inv.getController().getRequest().getMethod();
+		if("get".equalsIgnoreCase(method) || "post".equalsIgnoreCase(method) ){
+			inv.invoke();
+		}else{
+			inv.getController().renderNull();
+		}
+		
 	}
 
 }

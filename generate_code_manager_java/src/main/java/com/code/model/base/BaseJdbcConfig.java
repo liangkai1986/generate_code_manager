@@ -18,6 +18,15 @@ public abstract class BaseJdbcConfig<M extends BaseJdbcConfig<M>> extends Model<
 		return getInt("jdbc_config_id");
 	}
 
+	public M setName(java.lang.String name) {
+		set("name", name);
+		return (M)this;
+	}
+	
+	public java.lang.String getName() {
+		return getStr("name");
+	}
+
 	public M setJdbcUrl(java.lang.String jdbcUrl) {
 		set("jdbcUrl", jdbcUrl);
 		return (M)this;
