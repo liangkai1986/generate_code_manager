@@ -27,4 +27,13 @@ public abstract class BaseProject<M extends BaseProject<M>> extends Model<M> imp
 		return getStr("name");
 	}
 
+	public M setJdbcConfigId(java.lang.Integer jdbcConfigId) {
+		set("jdbc_config_id", jdbcConfigId);
+		return (M)this;
+	}
+	
+	public java.lang.Integer getJdbcConfigId() {
+		return getInt("jdbc_config_id");
+	}
+
 }

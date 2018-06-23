@@ -12,7 +12,7 @@ public class BaseInterceptor implements Interceptor {
 			inv.getController().getResponse().setHeader("Access-Control-Allow-Methods",
 					"GET, POST, OPTIONS, PUT, PATCH, DELETE");
 			try {
-				Thread.sleep(0);// 记得删掉
+				Thread.sleep(2000);// 记得删掉
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
