@@ -22,13 +22,13 @@ public class JdbcConfigController extends BaseController{
 		jdbcConfig.setUser(getPara("user"));
 		jdbcConfig.setPassword(getPara("password"));
 		jdbcConfig.setJdbcUrl(getPara("jdbcUrl"));
-		if(getPara("jdbcConfigId") == null){
+		if(getPara("jdbc_config_id") == null){
 			jdbcConfig.save();
 		}else{
-			jdbcConfig.setJdbcConfigId(getParaToInt("jdbcConfigId"));
+			jdbcConfig.setJdbcConfigId(getParaToInt("jdbc_config_id"));
 			jdbcConfig.update();
 		}
 		
-		renderNull();
+		renderJson(new ResultData());
 	}
 }

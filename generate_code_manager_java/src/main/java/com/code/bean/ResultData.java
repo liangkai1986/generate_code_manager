@@ -15,8 +15,9 @@ public class ResultData {
 	public Boolean getOk() {
 		return ok;
 	}
-	public void setOk(Boolean ok) {
+	public ResultData setOk(Boolean ok) {
 		this.ok = ok;
+		return this;
 	}
 	public ResultData setOk(boolean ok) {
 		this.ok = ok;
