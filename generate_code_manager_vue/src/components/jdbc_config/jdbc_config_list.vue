@@ -28,7 +28,7 @@ export default {
   data() {
     return {
       msg: "aa",
-      tableData: [{ jdbc_config_id: "b" }]
+      tableData: []
     };
   },
   methods: {
