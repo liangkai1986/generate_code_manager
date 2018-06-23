@@ -1,7 +1,8 @@
 <template>
   <el-container>
     <el-header><el-button  @click="addJdbcInfo()">增加jdbc記錄</el-button></el-header>
-    <el-main>列表
+    <el-main>数据源列表
+      <hr>
           <el-table :data="tableDataList" height="500" border style="width: 100%"  v-loading="loading">
             <el-table-column prop="jdbc_config_id" label="id" width="50"  header-align="center"></el-table-column>
             <el-table-column prop="name" label="名称" width="100"  header-align="center"></el-table-column>
