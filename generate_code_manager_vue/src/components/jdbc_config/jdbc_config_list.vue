@@ -5,7 +5,8 @@
       <hr>
           <el-table :data="tableDataList" height="500" border style="width: 100%"  v-loading="loading">
             <el-table-column prop="jdbc_config_id" label="id" width="50"  header-align="center"></el-table-column>
-            <el-table-column prop="name" label="名称" width="100"  header-align="center"></el-table-column>
+            <el-table-column prop="name" label="数据【源】名称" width="150"  header-align="center"></el-table-column>
+             <el-table-column prop="name" label="数据【库】名称" width="150"  header-align="center"></el-table-column>
             <el-table-column prop="user" label="账号" width="100"  header-align="center"></el-table-column>
             <el-table-column prop="password" label="密码" width="180"  header-align="center"></el-table-column>
             <el-table-column prop="jdbcUrl" label="链接" width="450"  header-align="center"></el-table-column>
@@ -19,12 +20,15 @@
     </el-main>
 
     <el-dialog title="编辑" :visible.sync="addTableVisible">
-        <el-form ref="form" :model="tableData" label-width="80px">
+        <el-form ref="form" :model="tableData" label-width="120px">
           <el-form-item label="id">
               <el-input v-model="tableData.jdbc_config_id" :disabled="true"></el-input>
           </el-form-item>
-           <el-form-item label="名称">
+           <el-form-item label="数据【源】名称">
               <el-input v-model="tableData.name"></el-input>
+          </el-form-item>
+          <el-form-item label="数据库【名】称">
+              <el-input v-model="tableData.db_name"></el-input>
           </el-form-item>
            <el-form-item label="账号">
               <el-input v-model="tableData.user"></el-input>
@@ -129,6 +133,7 @@ export default {
       let data = {
         jdbc_config_id: this.tableData.jdbc_config_id,
         name: this.tableData.name,
+        db_name: this.tableData.db_name,
         user: this.tableData.user,
         password: this.tableData.password,
         jdbcUrl: this.tableData.jdbcUrl

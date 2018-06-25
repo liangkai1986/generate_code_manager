@@ -26,7 +26,7 @@
                       <el-button @click="editFun(tableDataTmp.project_id)" type="primary" icon="el-icon-edit" circle>编辑</el-button>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" content="生成代码的操作" placement="top-start">
-                      <el-button type="success" round>代码生成操作</el-button>
+                      <router-link  to="/tableInfoList?id=1" target="_blank"><el-button type="success" round>代码生成操作</el-button></router-link>
                     </el-tooltip>
                   </el-row>
               </el-card>
@@ -62,6 +62,8 @@
 export default {
   name: "HelloWorld",
   created: function() {
+
+     
     this.getList();
     this.getJdbcConfigList();
     // `this` 指向 vm 实例
