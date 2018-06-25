@@ -19,6 +19,7 @@ public class JdbcConfigController extends BaseController{
 		JdbcConfig jdbcConfig = new JdbcConfig();
 		
 		jdbcConfig.setName(getPara("name"));
+		jdbcConfig.setDbName(getPara("db_name"));
 		jdbcConfig.setUser(getPara("user"));
 		jdbcConfig.setPassword(getPara("password"));
 		jdbcConfig.setJdbcUrl(getPara("jdbcUrl"));
