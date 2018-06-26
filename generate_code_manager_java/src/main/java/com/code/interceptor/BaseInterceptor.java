@@ -11,11 +11,11 @@ public class BaseInterceptor implements Interceptor {
 			inv.getController().getResponse().addHeader("Access-Control-Allow-Origin", "*");
 			inv.getController().getResponse().setHeader("Access-Control-Allow-Methods",
 					"GET, POST, OPTIONS, PUT, PATCH, DELETE");
-			try {
-				Thread.sleep(2000);// 记得删掉
-			} catch (InterruptedException e) {
-				e.printStackTrace();
-			}
+//			try {
+//				Thread.sleep(2000);// 记得删掉
+//			} catch (InterruptedException e) {
+//				e.printStackTrace();
+//			}
 			inv.getController().getResponse().setHeader("Access-Control-Allow-Headers", "*");
 			String method = inv.getController().getRequest().getMethod();
 			if ("get".equalsIgnoreCase(method) || "post".equalsIgnoreCase(method)) {

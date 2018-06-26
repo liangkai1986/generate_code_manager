@@ -1,6 +1,10 @@
 <template>
   <el-container>
-    <el-header><el-button  @click="addJdbcInfo()">增加项目</el-button><el-button  @click="go_href('jdbcConfigList')">数据源管理</el-button></el-header>
+    <el-header><el-input
+    placeholder="筛选数据库表列表"
+    prefix-icon="el-icon-search"
+    v-model="tableName" @input="getList" style="width:200px">
+  </el-input><el-button  @click="addJdbcInfo()">增加项目</el-button><el-button  @click="go_href('jdbcConfigList')">数据源管理</el-button></el-header>
     <el-main>项目列表
       <hr>
           <el-row :gutter="12" v-loading.fullscreen.lock="loading">
@@ -42,7 +46,6 @@ export default {
   name: "tableInfo",
   created: function() {
     this.projectId = this.$route.query.id;
-
     this.getList();
     this.getJdbcConfigList();
     // `this` 指向 vm 实例
@@ -61,6 +64,7 @@ export default {
   },
   methods: {
     getList: function() {
+
       var thisVar = this;
       this.loading=true;
       const qs = require("qs");
