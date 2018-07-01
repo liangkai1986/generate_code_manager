@@ -1,7 +1,6 @@
 package com.code.controller;
 
 import com.code.bean.ResultData;
-import com.code.model.JdbcConfig;
 import com.code.model.Project;
 
 public class ProjectController extends BaseController{

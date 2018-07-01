@@ -4,7 +4,6 @@ import com.code.model.JdbcConfig;
 import com.code.model.Project;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.Db;
-import com.jfinal.plugin.activerecord.DbKit;
 import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.druid.DruidPlugin;
 

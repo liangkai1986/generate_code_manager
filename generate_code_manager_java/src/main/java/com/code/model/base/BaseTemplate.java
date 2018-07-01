@@ -27,4 +27,22 @@ public abstract class BaseTemplate<M extends BaseTemplate<M>> extends Model<M> i
 		return getStr("content");
 	}
 
+	public M setName(java.lang.String name) {
+		set("name", name);
+		return (M)this;
+	}
+	
+	public java.lang.String getName() {
+		return getStr("name");
+	}
+
+	public M setPath(java.lang.String path) {
+		set("path", path);
+		return (M)this;
+	}
+	
+	public java.lang.String getPath() {
+		return getStr("path");
+	}
+
 }

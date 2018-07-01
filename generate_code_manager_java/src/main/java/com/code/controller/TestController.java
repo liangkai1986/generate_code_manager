@@ -8,11 +8,11 @@ import com.code.model.Template;
 import com.code.util.FreemarkerUtil;
 import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.Db;
-import com.jfinal.plugin.activerecord.DbKit;
 import com.jfinal.plugin.druid.DruidPlugin;
 
 public class TestController extends BaseController{
 	
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public void index() {
 		System.out.println("sss");
 		Template t = Template.dao.findById(1);

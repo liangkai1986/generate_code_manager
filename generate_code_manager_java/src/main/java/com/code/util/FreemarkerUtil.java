@@ -13,13 +13,32 @@ import freemarker.template.Configuration;
 import freemarker.template.Template;
 
 public class FreemarkerUtil {
+	@SuppressWarnings({ "rawtypes", "unchecked" })
 	public static void main(String[] args) throws Exception {
 		Map data = new HashMap<String, Object>();
 		data.put("user", "哈哈哈");
-		String a = createFile("欢迎：${user}", data, "G:\\aa.txt");
+		String a = createStr("欢迎：${user}", data);
 		System.out.println(a);
 	}
+	@SuppressWarnings({ "deprecation", "rawtypes" })
+	public static String createStr(String templateStr, Map data){
+		try {
+			Configuration cfg = new Configuration();
+			cfg.setTemplateLoader(new StringTemplateLoader(templateStr));
+			cfg.setDefaultEncoding("UTF-8");
 
+			Template template = cfg.getTemplate("");
+
+			StringWriter writer = new StringWriter();
+			template.process(data, writer);
+			return writer.toString();
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return null;
+	}
+	
+	@SuppressWarnings({ "deprecation", "rawtypes" })
 	public static String createFile(String templateStr, Map data, String path) {
 		try {
 			Configuration cfg = new Configuration();
