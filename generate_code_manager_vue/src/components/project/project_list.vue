@@ -4,7 +4,7 @@
     <el-main>项目列表
       <hr>
           <el-row :gutter="12" v-loading.fullscreen.lock="loading">
-            <el-col :span="8" v-for="tableDataTmp in tableDataList" :key="tableDataTmp" >
+            <el-col :span="8" v-for="tableDataTmp in tableDataList" :key="tableDataTmp.id" >
               <el-card    shadow="always" :body-style="{ height: '180px' }">
                   <el-row>
                   <el-tooltip  class="item" effect="dark" content="這是項目名稱" placement="top-start">
@@ -44,7 +44,7 @@
           </el-form-item>
           <el-form-item label="数据源">
             <el-radio-group    v-model="tableData.jdbc_config_id" size="medium" >
-              <el-radio v-for="jdbcDataTmp in JdbcDataList" :key="jdbcDataTmp" :label="jdbcDataTmp.jdbc_config_id"  border >{{jdbcDataTmp.name}}</el-radio>
+              <el-radio v-for="jdbcDataTmp in JdbcDataList" :key="jdbcDataTmp.id" :label="jdbcDataTmp.jdbc_config_id"  border >{{jdbcDataTmp.name}}</el-radio>
 
             </el-radio-group>
           </el-form-item>
