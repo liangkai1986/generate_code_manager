@@ -21,7 +21,7 @@ public class FreemarkerUtil {
 		System.out.println(a);
 	}
 	@SuppressWarnings({ "deprecation", "rawtypes" })
-	public static String createStr(String templateStr, Map data){
+	public static String createStr(String templateStr, Object data){
 		try {
 			Configuration cfg = new Configuration();
 			cfg.setTemplateLoader(new StringTemplateLoader(templateStr));

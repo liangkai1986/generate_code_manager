@@ -4,7 +4,7 @@
     placeholder="筛选数据库表列表"
     prefix-icon="el-icon-search"
     v-model="tableName" @input="getList" style="width:200px">
-  </el-input></el-header>
+  </el-input><el-button  @click="showListTemplate()">模板管理</el-button></el-header>
     <el-main>项目列表
       <hr>
           <el-row :gutter="12" v-loading.fullscreen.lock="loading">
@@ -47,6 +47,12 @@
     </el-dialog>
 
 
+    <el-dialog title="模板管理" :visible.sync="templateVisible" :fullscreen="true">
+        <el-button  @click="listGenerateCodeFun()">开始生成</el-button>
+
+     
+    </el-dialog>
+
   </el-container>
 
 
@@ -72,7 +78,8 @@ export default {
       templateList: [],
       tableData: {},
       loading: true,
-      startGenerateCodeTableName: null
+      startGenerateCodeTableName: null,
+      templateVisible: false
     };
   },
   methods: {
@@ -80,7 +87,7 @@ export default {
       this.startGenerateCodeTableName = null;
       this.startGenerateCodeTableName = tableName;
       console.log(tableName);
-      this.getTemplateListFun(tableName);
+      this.getTemplateListFun();
       this.generateCodeVisible = true;
     },
     listGenerateCodeFun: function() {
@@ -123,7 +130,7 @@ export default {
       obj = JSON.parse(JSON.stringify(data)); //this.templateData是父组件传递的对象
       return obj;
     },
-    getTemplateListFun: function(tableName) {
+    getTemplateListFun: function() {
       var thisVar = this;
       this.loading = true;
       const qs = require("qs");
@@ -131,7 +138,6 @@ export default {
       thisVar.templateList = null;
       let data = {
         projectId: thisVar.projectId,
-        tableName: thisVar.tableName
       };
 
       this.$http
@@ -174,6 +180,9 @@ export default {
           console.log(error);
           thisVar.$message.error("网络错误");
         });
+    },showListTemplate:function(){
+       this.templateVisible= true;
+
     }
   }
 };
