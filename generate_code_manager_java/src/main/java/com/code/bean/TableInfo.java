@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Map;
 
+import com.code.util.GenerateCodeUtils;
+import com.jfinal.kit.StrKit;
+
 public class TableInfo implements Serializable{
 	private static final long serialVersionUID = 1L;
 	
@@ -20,6 +23,7 @@ public class TableInfo implements Serializable{
 	private String tableName;
 	private String tableComment;
 	private String entityName;
+	private String entityNameFirstUpperCase;
 	private List<ColumnInfo> listColumnInfo;
 	public String getTableName() {
 		return tableName;
@@ -54,13 +58,22 @@ public class TableInfo implements Serializable{
 	public void setBaseTableInfoMap(Map<String, Object> baseTableInfoMap) {
 		this.baseTableInfoMap = baseTableInfoMap;
 		if(this.baseTableInfoMap!=null) {
-			//执行对应的操作
+			this.tableName = GenerateCodeUtils.getToStr(baseTableInfoMap.get("TABLE_NAME"));
+			this.tableComment = GenerateCodeUtils.getToStr(baseTableInfoMap.get("TABLE_COMMENT"));
+			this.entityName=GenerateCodeUtils.toCamelCase(this.tableName);
+			this.entityNameFirstUpperCase =StrKit.firstCharToLowerCase(this.entityName);
 		}
 	}
 	@Override
 	public String toString() {
 		return "TableInfo [baseTableInfoMap=" + baseTableInfoMap + ", tableName=" + tableName + ", tableComment="
 				+ tableComment + ", entityName=" + entityName + ", listColumnInfo=" + listColumnInfo + "]";
+	}
+	public String getEntityNameFirstUpperCase() {
+		return entityNameFirstUpperCase;
+	}
+	public void setEntityNameFirstUpperCase(String entityNameFirstUpperCase) {
+		this.entityNameFirstUpperCase = entityNameFirstUpperCase;
 	}
 	
 	

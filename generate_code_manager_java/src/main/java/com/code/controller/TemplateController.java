@@ -13,6 +13,7 @@ import com.code.model.Project;
 import com.code.model.Template;
 import com.code.util.FreemarkerUtil;
 import com.code.util.GCM_DB_util;
+import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.activerecord.Record;
 
@@ -40,6 +41,7 @@ public class TemplateController extends BaseController {
 		Template template = Template.dao.findById(getPara("templateId"));
 		// 数据
 		TableInfo tableInfo = generateBean();
+		System.out.println(JsonKit.toJson(tableInfo));
 		String aString = FreemarkerUtil.createStr(template.getContent(), tableInfo);
 		System.out.println("ddd" + aString);
 		renderJson(new ResultData().setData(aString));
