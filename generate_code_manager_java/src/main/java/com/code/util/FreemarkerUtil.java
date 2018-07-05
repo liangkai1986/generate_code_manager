@@ -20,7 +20,7 @@ public class FreemarkerUtil {
 		String a = createStr("欢迎：${user}", data);
 		System.out.println(a);
 	}
-	@SuppressWarnings({ "deprecation", "rawtypes" })
+	@SuppressWarnings({ "deprecation"})
 	public static String createStr(String templateStr, Object data){
 		try {
 			Configuration cfg = new Configuration();
@@ -30,30 +30,24 @@ public class FreemarkerUtil {
 			Template template = cfg.getTemplate("");
 
 			StringWriter writer = new StringWriter();
-			template.process(data, writer);
-			return writer.toString();
+			Map<String, Object> dataMap = new HashMap<String, Object>();
+			dataMap.put("data", data);
+			template.process(dataMap, writer);
+			String dataTmp = writer.toString();
+			writer.close();
+			return dataTmp;
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
 	}
 	
-	@SuppressWarnings({ "deprecation", "rawtypes" })
-	public static String createFile(String templateStr, Map data, String path) {
+	public static String createFile(String templateStr, Object data, String path) {
 		try {
-			Configuration cfg = new Configuration();
-			cfg.setTemplateLoader(new StringTemplateLoader(templateStr));
-			cfg.setDefaultEncoding("UTF-8");
-
-			Template template = cfg.getTemplate("");
-
-			StringWriter writer = new StringWriter();
-			template.process(data, writer);
-
 			FileWriter fileWriter = new FileWriter(path);
-			template.process(data, fileWriter);
-			
-			return writer.toString();
+			fileWriter.write(createStr(templateStr, data));
+			fileWriter.flush();
+			fileWriter.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

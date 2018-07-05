@@ -48,7 +48,19 @@
 
 
     <el-dialog title="模板管理" :visible.sync="templateVisible" :fullscreen="true">
-        <el-button  @click="listGenerateCodeFun()">开始生成</el-button>
+         <el-button  @click="saveUpdateTempaleFun()">添加模板</el-button>
+         <el-tabs type="border-card" tab-position="top">
+          <el-tab-pane  v-for="item in templateList" :key="item.id"  :label="item.name" stretch ="true" >
+            <el-button   @click="saveUpdateTempaleFun(item)">保存【 {{item.name}}】模板</el-button>
+            <hr/>
+            <el-input placeholder="模板名称" v-model="item.name"  style="width:200px"></el-input>
+            <el-input placeholder="模板路径" v-model="item.path"  style="width:500px"></el-input>
+             <hr/>
+            <textarea rows="50" cols="150" v-model="item.content"></textarea>
+
+          </el-tab-pane>
+       
+         </el-tabs>
 
      
     </el-dialog>
@@ -91,13 +103,13 @@ export default {
       this.generateCodeVisible = true;
     },
     listGenerateCodeFun: function() {
-      console.log("dddddddddd");
       for (var i = 0; i < this.templateList.length; ++i) {
         let data = this.templateList[i];
         console.log(data);
+        this.generateCodeFun(data);
         //this.generateCodeFun(data);
       }
-      this.generateCodeFun(this.templateList[0]);
+
     },
     generateCodeFun: function(templateInfo) {
       var thisVar = this;
@@ -137,7 +149,7 @@ export default {
       var thisVar = this;
       thisVar.templateList = null;
       let data = {
-        projectId: thisVar.projectId,
+        projectId: thisVar.projectId
       };
 
       this.$http
@@ -180,9 +192,44 @@ export default {
           console.log(error);
           thisVar.$message.error("网络错误");
         });
-    },showListTemplate:function(){
-       this.templateVisible= true;
+    },
+    showListTemplate: function() {
+      this.templateVisible = true;
+      this.getTemplateListFun();
+    },
+    saveUpdateTempaleFun: function(data) {
+      const qs = require("qs");
+      var thisVar = this;
 
+      let dataTmp = {
+        project_id: thisVar.projectId
+      };
+
+      if (data != null) {
+        dataTmp = {
+          template_id: data.template_id,
+          project_id: thisVar.projectId,
+          name: data.name,
+          content: data.content,
+          path: data.path
+        };
+      }
+
+      this.$http
+        .post("/template/saveUpdate", qs.stringify(dataTmp))
+        .then(function(response) {
+          if (response.data.ok) {
+            thisVar.$message.success("添加或者修改成功");
+            thisVar.addTableVisible = false;
+            thisVar.getTemplateListFun();
+          } else {
+            thisVar.$message.error(response.data.msg);
+          }
+        })
+        .catch(function(error) {
+          console.log(error);
+          thisVar.$message.error("网络错误");
+        });
     }
   }
 };

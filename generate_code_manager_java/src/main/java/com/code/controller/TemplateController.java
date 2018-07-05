@@ -1,8 +1,6 @@
 package com.code.controller;
 
-import java.security.PrivilegedActionException;
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 import com.code.bean.ColumnInfo;
@@ -13,7 +11,6 @@ import com.code.model.Project;
 import com.code.model.Template;
 import com.code.util.FreemarkerUtil;
 import com.code.util.GCM_DB_util;
-import com.jfinal.kit.JsonKit;
 import com.jfinal.plugin.activerecord.DbPro;
 import com.jfinal.plugin.activerecord.Record;
 
@@ -34,17 +31,31 @@ public class TemplateController extends BaseController {
 	}
 
 	public void saveUpdate() {
-
+		Template template = new Template();
+		template.setName(getPara("name"));
+		template.setProjectId(getParaToInt("project_id"));
+		template.setPath(getPara("path"));
+		template.setContent(getPara("content"));
+		
+		if(getPara("template_id")!=null){
+			template.setTemplateId(getParaToInt("template_id"));
+		}
+		if(getPara("template_id") == null){
+			template.save();
+			if(getPara("name")==null){
+				template.setName("模板-"+template.getTemplateId()+"");
+			}
+		}
+		template.update();
+		renderJson(new ResultData());
 	}
 
 	public void generateCode() throws Exception {
 		Template template = Template.dao.findById(getPara("templateId"));
 		// 数据
 		TableInfo tableInfo = generateBean();
-		System.out.println(JsonKit.toJson(tableInfo));
-		String aString = FreemarkerUtil.createStr(template.getContent(), tableInfo);
-		System.out.println("ddd" + aString);
-		renderJson(new ResultData().setData(aString));
+		FreemarkerUtil.createFile(template.getContent(), tableInfo,FreemarkerUtil.createStr(template.getPath(), tableInfo));
+		renderJson(new ResultData());
 	}
 
 	private TableInfo generateBean() throws Exception {
