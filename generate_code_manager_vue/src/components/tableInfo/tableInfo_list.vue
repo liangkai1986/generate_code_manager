@@ -35,6 +35,7 @@
 
     <el-dialog title="代码生成操作" :visible.sync="generateCodeVisible" :fullscreen="true">
         <el-button  @click="listGenerateCodeFun()">开始生成</el-button>
+        <hr/>
         <el-tabs type="border-card" tab-position="top">
         
         <el-tab-pane  v-for="item in templateList" :key="item.id"  :label="item.name" stretch ="true" >
@@ -49,13 +50,16 @@
 
     <el-dialog title="模板管理" :visible.sync="templateVisible" :fullscreen="true">
          <el-button  @click="saveUpdateTempaleFun()">添加模板</el-button>
+         <hr/>
          <el-tabs type="border-card" tab-position="top">
           <el-tab-pane  v-for="item in templateList" :key="item.id"  :label="item.name" stretch ="true" >
             <el-button   @click="saveUpdateTempaleFun(item)">保存【 {{item.name}}】模板</el-button>
-            <hr/>
+            <br/>
+            <br/>
             <el-input placeholder="模板名称" v-model="item.name"  style="width:200px"></el-input>
             <el-input placeholder="模板路径" v-model="item.path"  style="width:500px"></el-input>
-             <hr/>
+            <br/>
+            <br/>
             <textarea rows="50" cols="150" v-model="item.content"></textarea>
 
           </el-tab-pane>

@@ -41,10 +41,10 @@ public class ColumnInfo {
 				}
 			}
 			DbColumnType dbColumnType= new MySqlTypeConvert().processTypeConvert(this.columnType);
-			System.err.print(dbColumnType.name());
-			System.err.print(dbColumnType.getPkg());
-			System.err.println(dbColumnType.getType());
-			;
+//			System.err.print(dbColumnType.name());
+//			System.err.print(dbColumnType.getPkg());
+//			System.err.println(dbColumnType.getType());
+//			;
 		}
 	}
 
@@ -109,4 +109,12 @@ public class ColumnInfo {
 		this.entityType = entityType;
 	}
 
+	public boolean isColumnIsNull() {
+		return columnIsNull;
+	}
+
+	public void setColumnIsNull(boolean columnIsNull) {
+		this.columnIsNull = columnIsNull;
+	}
+	
 }
