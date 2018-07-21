@@ -59,6 +59,13 @@
             <el-input placeholder="模板名称" v-model="item.name"  style="width:200px"></el-input>
             <el-input placeholder="模板路径" v-model="item.path"  style="width:500px"></el-input>
             <br/>
+            <el-card class="box-card">
+              <div slot="header" class="clearfix">
+                <span>设置这个模板对应的字段配置{{item.configIdList}}</span>
+              </div>
+              <el-checkbox v-model="item.configIdList" v-for="itemConfig in configList" :key="itemConfig.config_id" :value="itemConfig.config_id"  style="margin-top:10px;" :label="itemConfig.config_id"  border>{{itemConfig.config_name}}</el-checkbox>
+              
+            </el-card>
             <br/>
             <textarea rows="50" cols="150" v-model="item.content"></textarea>
 
@@ -82,7 +89,7 @@ export default {
   created: function() {
     this.projectId = this.$route.query.id;
     this.getList();
-
+    this.getConfigList();
     // `this` 指向 vm 实例
   },
   data() {
@@ -95,7 +102,8 @@ export default {
       tableData: {},
       loading: true,
       startGenerateCodeTableName: null,
-      templateVisible: false
+      templateVisible: false,
+      configList:[]
     };
   },
   methods: {
@@ -105,6 +113,7 @@ export default {
       console.log(tableName);
       this.getTemplateListFun();
       this.generateCodeVisible = true;
+      
     },
     listGenerateCodeFun: function() {
       for (var i = 0; i < this.templateList.length; ++i) {
@@ -196,10 +205,36 @@ export default {
           console.log(error);
           thisVar.$message.error("网络错误");
         });
+    }, getConfigList: function() {
+      var thisVar = this;
+      this.loading = true;
+      const qs = require("qs");
+      var thisVar = this;
+      let data = {
+        projectId: thisVar.projectId
+      };
+      thisVar.configList = null;
+      this.$http
+        .post("/config/list", qs.stringify(data))
+        .then(function(response) {
+          thisVar.loading = false;
+          if (response.data.ok) {
+            thisVar.configList = response.data.data;
+          } else {
+            thisVar.$message.error(response.data.msg);
+          }
+        })
+        .catch(function(error) {
+          thisVar.loading = false;
+          console.log(error);
+          thisVar.$message.error("网络错误");
+        });
     },
     showListTemplate: function() {
       this.templateVisible = true;
+      this.getConfigList();
       this.getTemplateListFun();
+
     },
     saveUpdateTempaleFun: function(data) {
       const qs = require("qs");
@@ -208,14 +243,19 @@ export default {
       let dataTmp = {
         project_id: thisVar.projectId
       };
-
+      console.log("thisVar.configList begin");
+      console.log(data);
+      console.log(data.configIdList);
+       console.log("thisVar.configList end");
       if (data != null) {
         dataTmp = {
           template_id: data.template_id,
           project_id: thisVar.projectId,
           name: data.name,
           content: data.content,
-          path: data.path
+
+          path: data.path,
+          configIdList: data.configIdList.join()
         };
       }
 

@@ -22,6 +22,7 @@ public class ColumnInfo {
 
 	}
 
+	@SuppressWarnings("unused")
 	public ColumnInfo(Map<String, Object> baseCoumnInfoMap) {
 		this.baseCoumnInfoMap = baseCoumnInfoMap;
 		System.out.println("baseCoumnInfoMap:" + this.baseCoumnInfoMap);

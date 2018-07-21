@@ -1,5 +1,6 @@
 package com.code.config;
 
+import com.code.controller.ConfigController;
 import com.code.controller.JdbcConfigController;
 import com.code.controller.ProjectController;
 import com.code.controller.TableInfoController;
@@ -14,5 +15,6 @@ public class RouteConfig extends Routes{
 		add("/project",ProjectController.class);
 		add("/tableInfo",TableInfoController.class);
 		add("/template",TemplateController.class);
+		add("/config",ConfigController.class);
 	}
 }

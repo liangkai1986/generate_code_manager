@@ -53,6 +53,7 @@ public class Config extends JFinalConfig {
 		// 配置ActiveRecord插件
 		ActiveRecordPlugin arp = new ActiveRecordPlugin(druidPlugin);
 		// 所有映射在 MappingKit 中自动化搞定
+		arp.setShowSql(true);
 		_MappingKit.mapping(arp);
 		me.add(arp);
 	}
