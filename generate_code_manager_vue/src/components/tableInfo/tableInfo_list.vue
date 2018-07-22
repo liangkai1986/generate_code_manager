@@ -162,7 +162,8 @@ export default {
       var thisVar = this;
       thisVar.templateList = null;
       let data = {
-        projectId: thisVar.projectId
+        projectId: thisVar.projectId,
+        tableName: thisVar.startGenerateCodeTableName
       };
 
       this.$http

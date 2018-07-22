@@ -2,8 +2,10 @@ package com.code.controller;
 
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import com.code.bean.ColumnInfo;
@@ -24,12 +26,10 @@ import com.jfinal.plugin.activerecord.tx.Tx;
 
 public class TemplateController extends BaseController {
 
-	public void list() {
+	public void list() throws Exception {
 		List<Template> dataList = Template.dao.find("select * from template where project_id = ?",getPara("projectId"));
 		if(dataList!=null && dataList.size()>0){
 			for (int i = 0; i < dataList.size(); i++) {
-				
-				
 				//获得已经关联的 configId
 				List<Integer> configIdList=  new ArrayList<Integer>();
 				List<ConfigRecord> configRecordList = ConfigRecord.dao.find("select * from config_record where template_id= ? and project_id=?",dataList.get(i).getTemplateId(),getPara("projectId"));
@@ -39,6 +39,32 @@ public class TemplateController extends BaseController {
 					}
 				}
 				dataList.get(i).put("configIdList", configIdList);
+				
+				if(StrKit.notBlank(getPara("tableName"))){
+					String projectId = getPara("projectId");
+					Project project = Project.dao.findById(projectId);
+					String tableName = getPara("tableName");
+					JdbcConfig jdbcConfig = JdbcConfig.dao.findById(project.getJdbcConfigId());
+					DbPro dbPro = GCM_DB_util.getDb(project);
+					//列信息
+					List<Record> listBaseCoumnInfo = dbPro.find(
+							"SELECT * FROM information_schema. COLUMNS WHERE table_schema = ? and TABLE_NAME=?",
+							jdbcConfig.getDbName(), tableName);
+					
+					List<Map<String, Object>> columnsList = new ArrayList<Map<String,Object>>();
+					if (listBaseCoumnInfo != null && listBaseCoumnInfo.size() > 0) {
+						Map<String, Object> columnMap = new HashMap<String, Object>();
+						List<ConfigRecord> configRecordListTmp = ConfigRecord.dao.find("select * from config_record where template_id= ? and project_id=?",dataList.get(i).getTemplateId(),getPara("projectId"));
+						for (int k = 0; k < listBaseCoumnInfo.size(); k++) {
+							ColumnInfo columnInfo = new ColumnInfo(listBaseCoumnInfo.get(i).getColumns());
+							columnMap.put("columnInfo", columnInfo);
+							columnMap.put("configRecordList", configRecordListTmp);
+							columnsList.add(columnMap);
+						}
+					}
+					dataList.get(i).put("columnsList", columnsList);
+				}
+//				dataList.get(i).put("configRecordList", configRecordList);
 				
 			}
 		}
