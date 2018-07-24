@@ -8,6 +8,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import com.code.bean.ColumnConfig;
 import com.code.bean.ColumnInfo;
 import com.code.bean.ResultData;
 import com.code.bean.TableInfo;
@@ -19,7 +20,11 @@ import com.code.model.Project;
 import com.code.model.Template;
 import com.code.util.FreemarkerUtil;
 import com.code.util.GCM_DB_util;
+import com.code.util.GsonUtil;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.jfinal.aop.Before;
+import com.jfinal.kit.JsonKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.DbPro;
@@ -41,7 +46,7 @@ public class TemplateController extends BaseController {
 					}
 				}
 				dataList.get(i).put("configIdList", configIdList);
-				dataList.get(i).put("columnsList", new ArrayList<Object>());
+				dataList.get(i).put("columnsList", new ArrayList<Map<String,Object>>());
 				if(StrKit.notBlank(getPara("tableName"))){
 					String projectId = getPara("projectId");
 					Project project = Project.dao.findById(projectId);
@@ -157,18 +162,19 @@ public class TemplateController extends BaseController {
 
 		tableInfo.setBaseTableInfoMap(baseTableInfo.getColumns());
 
-		
-		
 		//列信息
 		List<Record> listBaseCoumnInfo = dbPro.find(
 				"SELECT * FROM information_schema. COLUMNS WHERE table_schema = ? and TABLE_NAME=?",
 				jdbcConfig.getDbName(), tableName);
-
+		
 		
 		List<ColumnInfo> listColumnInfo = new ArrayList<ColumnInfo>();
 		if (listBaseCoumnInfo != null && listBaseCoumnInfo.size() > 0) {
 			for (int i = 0; i < listBaseCoumnInfo.size(); i++) {
 				ColumnInfo ColumnInfo = new ColumnInfo(listBaseCoumnInfo.get(i).getColumns());
+				//设置一些配置的属性
+				setColumnInfoConfig(ColumnInfo);
+				
 				listColumnInfo.add(ColumnInfo);
 			}
 		}
@@ -176,5 +182,21 @@ public class TemplateController extends BaseController {
 		
 		System.out.println("tableInfo:"+tableInfo);
 		return tableInfo;
+	}
+	public void setColumnInfoConfig(ColumnInfo ColumnInfo) {
+		String columnsListStr = getPara("columnsListStr");
+		
+		if(StrKit.notBlank(columnsListStr)) {
+			List<Map<String, Object>> columnsList = GsonUtil.fromJson(columnsListStr, new TypeToken<List<Map<String, Object>>>() {}.getType());
+			if(columnsList!=null) {
+				for (int i = 0; i < columnsList.size(); i++) {
+					
+					Map<String, Object> columnsMap  = columnsList.get(i);
+					System.out.println("******** "+columnsMap);
+					List<Map<String, Object>> configList = (List<Map<String, Object>>) columnsMap.get("configList");
+					System.err.println(new ColumnConfig(configList));
+				}
+			}
+		}
 	}
 }

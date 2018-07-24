@@ -54,7 +54,7 @@
                   字段名：【{{columnsItem.columnInfo.columnName}}】     字段备注：【{{columnsItem.columnInfo.columnComment}}】
                   
                 </template>
-                
+                {{columnsItem}}
                 <div>
                 <el-row :gutter="12">
                   <el-col :span="8"  v-for="configItem in columnsItem.configList" :key="configItem.id">
@@ -188,15 +188,19 @@ export default {
       let data = {
         projectId: thisVar.projectId,
         tableName: thisVar.startGenerateCodeTableName,
-        templateId: templateInfo.template_id
+        templateId: templateInfo.template_id,
+        columnsListStr:JSON.stringify(templateInfo.columnsList)
       };
+      let templateName = templateInfo.name;
+      console.log(templateInfo.columnsList);
 
+      console.log(JSON.stringify(templateInfo.columnsList))
       this.$http
         .post("/template/generateCode", qs.stringify(data))
         .then(function(response) {
           thisVar.loading = false;
           if (response.data.ok) {
-            thisVar.$message.success("成功");
+            thisVar.$message.success("创建【"+templateName+"】成功");
           } else {
             thisVar.$message.error(response.data.msg);
           }

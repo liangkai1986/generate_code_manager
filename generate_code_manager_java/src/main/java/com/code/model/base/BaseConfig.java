@@ -45,4 +45,13 @@ public abstract class BaseConfig<M extends BaseConfig<M>> extends Model<M> imple
 		return getInt("project_id");
 	}
 
+	public M setCode(java.lang.String code) {
+		set("code", code);
+		return (M)this;
+	}
+	
+	public java.lang.String getCode() {
+		return getStr("code");
+	}
+
 }
