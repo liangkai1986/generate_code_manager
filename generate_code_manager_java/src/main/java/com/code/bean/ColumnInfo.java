@@ -27,6 +27,7 @@ public class ColumnInfo {
 		this.baseCoumnInfoMap = baseCoumnInfoMap;
 		System.out.println("baseCoumnInfoMap:" + this.baseCoumnInfoMap);
 		if (baseCoumnInfoMap != null) {
+			this.columnName = String.valueOf(this.baseCoumnInfoMap.get("COLUMN_NAME"));
 			this.keyFlag = this.baseCoumnInfoMap.get("EXTRA") != null;
 			this.columnIsNull = "YES"
 					.equalsIgnoreCase(GenerateCodeUtils.getToStr(this.baseCoumnInfoMap.get("COLUMN_COMMENT")));
@@ -53,6 +54,7 @@ public class ColumnInfo {
 	private String columnType;// 字段类型
 	private Integer columnTypeLength;// 字段类型长度
 	private String columnComment;// 字段备注
+	private String columnName;
 	private boolean columnIsNull = false; // 字段是否可以为空 可以为空：true 不能为空：false
 	private String entityType;// 实体类类型
 
@@ -116,6 +118,14 @@ public class ColumnInfo {
 
 	public void setColumnIsNull(boolean columnIsNull) {
 		this.columnIsNull = columnIsNull;
+	}
+
+	public String getColumnName() {
+		return columnName;
+	}
+
+	public void setColumnName(String columnName) {
+		this.columnName = columnName;
 	}
 	
 }

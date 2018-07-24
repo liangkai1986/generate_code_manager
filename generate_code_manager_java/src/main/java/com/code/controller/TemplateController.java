@@ -11,6 +11,8 @@ import java.util.Set;
 import com.code.bean.ColumnInfo;
 import com.code.bean.ResultData;
 import com.code.bean.TableInfo;
+import com.code.model.Config;
+import com.code.model.ConfigKeyVal;
 import com.code.model.ConfigRecord;
 import com.code.model.JdbcConfig;
 import com.code.model.Project;
@@ -39,7 +41,7 @@ public class TemplateController extends BaseController {
 					}
 				}
 				dataList.get(i).put("configIdList", configIdList);
-				
+				dataList.get(i).put("columnsList", new ArrayList<Object>());
 				if(StrKit.notBlank(getPara("tableName"))){
 					String projectId = getPara("projectId");
 					Project project = Project.dao.findById(projectId);
@@ -50,15 +52,23 @@ public class TemplateController extends BaseController {
 					List<Record> listBaseCoumnInfo = dbPro.find(
 							"SELECT * FROM information_schema. COLUMNS WHERE table_schema = ? and TABLE_NAME=?",
 							jdbcConfig.getDbName(), tableName);
-					
 					List<Map<String, Object>> columnsList = new ArrayList<Map<String,Object>>();
 					if (listBaseCoumnInfo != null && listBaseCoumnInfo.size() > 0) {
-						Map<String, Object> columnMap = new HashMap<String, Object>();
-						List<ConfigRecord> configRecordListTmp = ConfigRecord.dao.find("select * from config_record where template_id= ? and project_id=?",dataList.get(i).getTemplateId(),getPara("projectId"));
+						Map<String, Object> columnMap = null;
+						List<Config> configListTemp = Config.dao.find("select * from config where config_id in(select config_id from config_record where template_id= ? and project_id=?)",dataList.get(i).getTemplateId(),getPara("projectId"));
+						
+						for (int j = 0; j < configListTemp.size(); j++) {
+							List<ConfigKeyVal> configKeyValList = ConfigKeyVal.dao.find("select * from configKeyVal where config_id =?", configListTemp.get(j).getConfigId());
+							configListTemp.get(j).put("configKeyValList", configKeyValList);
+							configListTemp.get(j).put("checkValList",new ArrayList<Object>());
+							configListTemp.get(j).put("checkVal","");
+						}
+						
 						for (int k = 0; k < listBaseCoumnInfo.size(); k++) {
-							ColumnInfo columnInfo = new ColumnInfo(listBaseCoumnInfo.get(i).getColumns());
+							columnMap = new HashMap<String, Object>();
+							ColumnInfo columnInfo = new ColumnInfo(listBaseCoumnInfo.get(k).getColumns());
 							columnMap.put("columnInfo", columnInfo);
-							columnMap.put("configRecordList", configRecordListTmp);
+							columnMap.put("configList", configListTemp);
 							columnsList.add(columnMap);
 						}
 					}

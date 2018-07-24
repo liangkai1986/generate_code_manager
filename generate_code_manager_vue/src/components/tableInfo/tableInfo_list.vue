@@ -39,7 +39,62 @@
         <el-tabs type="border-card" tab-position="top">
         
         <el-tab-pane  v-for="item in templateList" :key="item.id"  :label="item.name" stretch ="true" >
-          {{item.name}}
+          {{item.name}}--
+
+
+          <el-card class="box-card"  style="margin-top:10px;">
+          <div slot="header" class="clearfix">
+            字段配置
+          </div>
+
+            <el-collapse  >
+
+              <el-collapse-item v-for="columnsItem in item.columnsList" :key="columnsItem.id" >
+                <template slot="title">
+                  字段名：【{{columnsItem.columnInfo.columnName}}】     字段备注：【{{columnsItem.columnInfo.columnComment}}】
+                  
+                </template>
+                
+                <div>
+                <el-row :gutter="12">
+                  <el-col :span="8"  v-for="configItem in columnsItem.configList" :key="configItem.id">
+                    <el-card shadow="hover" >
+                          <span> {{configItem.config_name}}:</span>
+                          <span v-if="configItem.input_type == 'radio'">
+                            <el-radio-group  v-model="configItem.checkVal">
+                              <el-radio-button  v-for="configKeyValItem in configItem.configKeyValList" :key="configKeyValItem.id"  :label="configKeyValItem.val">{{configKeyValItem.name}}</el-radio-button>
+                            </el-radio-group>
+                          </span>
+                          <span v-else>
+                          <el-checkbox-group  v-model="configItem.checkValList">
+                             <el-checkbox-button  v-for="configKeyValItem in configItem.configKeyValList" :key="configKeyValItem.id"  :label="configKeyValItem.val">{{configKeyValItem.name}}</el-checkbox-button>
+                          </el-checkbox-group>
+                          </span>
+                    </el-card>
+                  </el-col>
+                </el-row>
+                </div>
+
+
+               
+
+
+              </el-collapse-item>
+              <hr>
+            </el-collapse>
+
+
+
+        </el-card>
+
+
+
+  
+        
+
+
+
+
 
         </el-tab-pane>
        
@@ -94,6 +149,8 @@ export default {
   },
   data() {
     return {
+      tmpData:null,
+      tmpDataList:[],
       projectId: null,
       tableName: "",
       generateCodeVisible: false,

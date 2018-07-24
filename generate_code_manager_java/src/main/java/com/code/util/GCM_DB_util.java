@@ -23,7 +23,7 @@ public class GCM_DB_util {
 		} catch (Exception e) {
 			
 		}
-		
+		System.out.println(jdbcConfig.getJdbcConfigId().toString()+"  没有数据源 开始创建");
 		DruidPlugin druidPlugin = new DruidPlugin(jdbcConfig.getJdbcUrl(), jdbcConfig.getUser(),
 				jdbcConfig.getPassword());
 		druidPlugin.start();

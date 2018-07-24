@@ -18,22 +18,22 @@ public abstract class BaseConfigKeyVal<M extends BaseConfigKeyVal<M>> extends Mo
 		return getInt("id");
 	}
 
-	public M setColumnConfigId(java.lang.Integer columnConfigId) {
-		set("column_config_id", columnConfigId);
+	public M setConfigId(java.lang.Integer configId) {
+		set("config_id", configId);
 		return (M)this;
 	}
 	
-	public java.lang.Integer getColumnConfigId() {
-		return getInt("column_config_id");
+	public java.lang.Integer getConfigId() {
+		return getInt("config_id");
 	}
 
-	public M setKey(java.lang.String key) {
-		set("key", key);
+	public M setName(java.lang.String name) {
+		set("name", name);
 		return (M)this;
 	}
 	
-	public java.lang.String getKey() {
-		return getStr("key");
+	public java.lang.String getName() {
+		return getStr("name");
 	}
 
 	public M setVal(java.lang.String val) {

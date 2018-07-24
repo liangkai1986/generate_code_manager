@@ -19,7 +19,9 @@ public class BaseInterceptor implements Interceptor {
 			inv.getController().getResponse().setHeader("Access-Control-Allow-Headers", "*");
 			String method = inv.getController().getRequest().getMethod();
 			if ("get".equalsIgnoreCase(method) || "post".equalsIgnoreCase(method)) {
+				long startTime = System.currentTimeMillis();
 				inv.invoke();
+				System.out.println(inv.getController().getRequest().getRequestURI()+" 耗时："+(System.currentTimeMillis()-startTime)+"毫秒");
 			} else {
 				inv.getController().renderNull();
 			}
