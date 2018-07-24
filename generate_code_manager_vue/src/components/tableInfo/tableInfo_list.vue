@@ -131,6 +131,21 @@
      
     </el-dialog>
 
+
+    <el-dialog title="配置管理" :visible.sync="templateVisible" :fullscreen="true">
+         <el-button  @click="saveUpdateTempaleFun()">添加模板</el-button>
+         <hr/>
+         <el-tabs type="border-card" tab-position="top">
+          <el-tab-pane  v-for="item in templateList" :key="item.id"  :label="item.name" stretch ="true" >
+            
+
+          </el-tab-pane>
+       
+         </el-tabs>
+
+     
+    </el-dialog>
+
   </el-container>
 
 
