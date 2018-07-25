@@ -19,7 +19,7 @@
           </el-table>
     </el-main>
 
-    <el-dialog title="编辑" :visible.sync="addTableVisible">
+    <el-dialog title="添加/编辑【jdbc配置】" :visible.sync="addTableVisible">
         <el-form ref="form" :model="tableData" label-width="120px">
           <el-form-item label="id">
               <el-input v-model="tableData.jdbc_config_id" :disabled="true"></el-input>
@@ -39,7 +39,7 @@
            <el-form-item label="链接">
               <el-input v-model="tableData.jdbcUrl"></el-input>
           </el-form-item>
-              <el-button type="primary" @click="saveUpdateFun">立即创建</el-button>
+              <el-button type="primary" @click="saveUpdateFun">立即【创建/修改】</el-button>
         </el-form>
     </el-dialog>
   </el-container>

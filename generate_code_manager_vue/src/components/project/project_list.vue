@@ -34,7 +34,7 @@
           </el-row>
     </el-main>
 
-    <el-dialog title="编辑" :visible.sync="addTableVisible">
+    <el-dialog title="添加/编辑【项目】" :visible.sync="addTableVisible">
         <el-form ref="form" :model="tableData" label-width="80px">
           <el-form-item label="id">
               <el-input v-model="tableData.project_id" :disabled="true"></el-input>
@@ -48,7 +48,7 @@
 
             </el-radio-group>
           </el-form-item>
-              <el-button type="primary" @click="saveUpdateFun">立即创建</el-button>
+              <el-button type="primary" @click="saveUpdateFun">立即【创建/修改】</el-button>
         </el-form>
     </el-dialog>
   </el-container>

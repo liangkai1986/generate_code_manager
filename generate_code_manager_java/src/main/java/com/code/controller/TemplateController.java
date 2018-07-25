@@ -21,10 +21,8 @@ import com.code.model.Template;
 import com.code.util.FreemarkerUtil;
 import com.code.util.GCM_DB_util;
 import com.code.util.GsonUtil;
-import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.jfinal.aop.Before;
-import com.jfinal.kit.JsonKit;
 import com.jfinal.kit.StrKit;
 import com.jfinal.plugin.activerecord.Db;
 import com.jfinal.plugin.activerecord.DbPro;
@@ -85,10 +83,16 @@ public class TemplateController extends BaseController {
 		}
 		renderJson(new ResultData().setData(dataList));
 	}
-
+	@Before(Tx.class)
 	public void del() {
-		// JdbcConfig.dao.deleteById(getPara("id"));
-		// renderJson(new ResultData());
+		Template template = Template.dao.findById(getPara("templateId"));
+		if(template==null) {
+			renderJson(new ResultData().setMsg("查无数据，删除失败").setOk(false));
+			return;
+		}
+		Db.delete("delete from config_record where project_id=? and template_id=?",template.getProjectId(),template.getTemplateId());
+		template.delete();
+		renderJson(new ResultData());
 	}
 
 	public void get() {
@@ -183,6 +187,7 @@ public class TemplateController extends BaseController {
 		System.out.println("tableInfo:"+tableInfo);
 		return tableInfo;
 	}
+	@SuppressWarnings("unchecked")
 	public void setColumnInfoConfig(ColumnInfo ColumnInfo) {
 		String columnsListStr = getPara("columnsListStr");
 		
