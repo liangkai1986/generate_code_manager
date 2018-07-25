@@ -57,12 +57,7 @@ public class ColumnInfo {
 	private String columnName;
 	private boolean columnIsNull = false; // 字段是否可以为空 可以为空：true 不能为空：false
 	private String entityType;// 实体类类型
-
-	@Override
-	public String toString() {
-		return "ColumnInfo [baseCoumnInfoMap=" + baseCoumnInfoMap + ", keyFlag=" + keyFlag + ", columnType="
-				+ columnType + ", columnTypeLength=" + columnTypeLength + ", columnComment=" + columnComment + "]";
-	}
+	private ColumnConfig columnConfig;//配置
 
 	public Map<String, Object> getBaseCoumnInfoMap() {
 		return baseCoumnInfoMap;
@@ -127,5 +122,23 @@ public class ColumnInfo {
 	public void setColumnName(String columnName) {
 		this.columnName = columnName;
 	}
+
+
+	public ColumnConfig getColumnConfig() {
+		return columnConfig;
+	}
+
+	public void setColumnConfig(ColumnConfig columnConfig) {
+		this.columnConfig = columnConfig;
+	}
+
+	@Override
+	public String toString() {
+		return "ColumnInfo [baseCoumnInfoMap=" + baseCoumnInfoMap + ", keyFlag=" + keyFlag + ", columnType="
+				+ columnType + ", columnTypeLength=" + columnTypeLength + ", columnComment=" + columnComment
+				+ ", columnName=" + columnName + ", columnIsNull=" + columnIsNull + ", entityType=" + entityType
+				+ ", columnConfig=" + columnConfig + "]";
+	}
+
 	
 }
