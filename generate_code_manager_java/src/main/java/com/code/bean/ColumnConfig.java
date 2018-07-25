@@ -37,7 +37,7 @@ public class ColumnConfig {
 						dataTmp.put("radioFlag", true);
 						dataTmp.put("data", new HashMap<String, Object>());
 						if(map.get("checkVal")!=null &&StrKit.notBlank(String.valueOf(map.get("checkVal")))) {
-							Integer checkVal =  Integer.valueOf(String.valueOf(map.get("checkVal")));
+							Integer checkVal =  Double.valueOf(String.valueOf(map.get("checkVal"))).intValue();
 							dataTmp.put("data", getRadioDate(configKeyValList, checkVal));
 						}
 					}

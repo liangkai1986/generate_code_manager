@@ -60,12 +60,12 @@
                           <span> {{configItem.config_name}}:</span>
                           <span v-if="configItem.input_type == 'radio'">
                             <el-radio-group  v-model="configItem.checkVal">
-                              <el-radio-button  v-for="configKeyValItem in configItem.configKeyValList" :key="configKeyValItem.id"  :label="configKeyValItem.val">{{configKeyValItem.name}}</el-radio-button>
+                              <el-radio-button  v-for="configKeyValItem in configItem.configKeyValList" :key="configKeyValItem.id"  :label="configKeyValItem.id">{{configKeyValItem.name}}</el-radio-button>
                             </el-radio-group>
                           </span>
                           <span v-else>
                           <el-checkbox-group  v-model="configItem.checkValList">
-                             <el-checkbox-button  v-for="configKeyValItem in configItem.configKeyValList" :key="configKeyValItem.id"  :label="configKeyValItem.val">{{configKeyValItem.name}}</el-checkbox-button>
+                             <el-checkbox-button  v-for="configKeyValItem in configItem.configKeyValList" :key="configKeyValItem.id"  :label="configKeyValItem.id">{{configKeyValItem.name}}</el-checkbox-button>
                           </el-checkbox-group>
                           </span>
                     </el-card>
