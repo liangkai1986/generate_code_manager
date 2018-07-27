@@ -18,6 +18,7 @@ import com.code.model.ConfigRecord;
 import com.code.model.JdbcConfig;
 import com.code.model.Project;
 import com.code.model.Template;
+import com.code.util.FormatJsonUtil;
 import com.code.util.FreemarkerUtil;
 import com.code.util.GCM_DB_util;
 import com.code.util.GsonUtil;
@@ -159,7 +160,12 @@ public class TemplateController extends BaseController {
 				FreemarkerUtil.createStr(template.getPath(), tableInfo));
 		renderJson(new ResultData());
 	}
-
+	public void generateCodeJson() throws Exception {
+		// 数据
+		TableInfo tableInfo = generateBean();
+//		renderJson(new ResultData().setData(FormatJsonUtil.formatJson(GsonUtil.toJson(tableInfo))));
+		renderJson(new ResultData().setData(GsonUtil.toJson(tableInfo)));
+	}
 	private TableInfo generateBean() throws Exception {
 
 		String projectId = getPara("projectId");
@@ -196,7 +202,7 @@ public class TemplateController extends BaseController {
 			}
 		}
 		tableInfo.setListColumnInfo(listColumnInfo);
-		System.err.println("tableInfo:"+GsonUtil.toJson(tableInfo));
+		System.err.println("tableInfo:" + GsonUtil.toJson(tableInfo));
 		return tableInfo;
 	}
 
@@ -212,7 +218,8 @@ public class TemplateController extends BaseController {
 			if (columnsList != null) {
 				for (int i = 0; i < columnsList.size(); i++) {
 					Map<String, Object> columnsMap = columnsList.get(i);
-					ColumnInfo columnInfoTmp = GsonUtil.fromJson(GsonUtil.toJson(columnsMap.get("columnInfo")), ColumnInfo.class);
+					ColumnInfo columnInfoTmp = GsonUtil.fromJson(GsonUtil.toJson(columnsMap.get("columnInfo")),
+							ColumnInfo.class);
 					if (columnInfo != null
 							&& columnInfo.getColumnName().equalsIgnoreCase(columnInfoTmp.getColumnName())) {
 						List<Map<String, Object>> configList = (List<Map<String, Object>>) columnsMap.get("configList");

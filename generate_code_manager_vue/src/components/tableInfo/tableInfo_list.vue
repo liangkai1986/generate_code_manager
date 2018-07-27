@@ -39,7 +39,8 @@
         <el-tabs type="border-card" tab-position="top">
         
         <el-tab-pane  v-for="item in templateList" :key="item.id"  :label="item.name" stretch ="true" >
-          
+          <el-button  @click="generateCodeJsonFun(item)">查看【{{item.name}}】的数据（方便调试模板）</el-button>
+          <el-button  @click="generateCodeFun(item)">生成【{{item.name}}】</el-button>
           <el-card class="box-card"  style="margin-top:10px;">
           <div slot="header" class="clearfix">
             字段配置
@@ -78,12 +79,6 @@
             </el-collapse>
 
         </el-card>
-
-
-
-  
-        
-
 
 
 
@@ -217,6 +212,12 @@
                 <el-button type="primary" @click="configKeyValSaveUpdateFun">立即【创建/修改】</el-button>
               </el-form>
           </el-dialog>
+
+
+          <el-dialog title="模板数据的json字符串" :visible.sync="dataJsonStrVisible" :fullscreen="true">
+            
+            <textarea name="" id="" cols="220" rows="50" v-model="dataJsonStr"></textarea>
+          </el-dialog>
   </el-container>
 
 
@@ -254,7 +255,9 @@ export default {
       configList: [],
       configData: {},
       configKeyValData: {},
-      configIdData:""
+      configIdData: "",
+      dataJsonStr: null,
+      dataJsonStrVisible: false
     };
   },
   methods: {
@@ -266,10 +269,13 @@ export default {
       }
       this.addOrEditConfigFlag = true;
     },
-    showConfigKeyValSaveUpdateFun: function(configKeyValDataTmp,configIdDataTmp) {
-      console.log(configKeyValDataTmp)
-       console.log("------")
-        console.log(configIdDataTmp)
+    showConfigKeyValSaveUpdateFun: function(
+      configKeyValDataTmp,
+      configIdDataTmp
+    ) {
+      console.log(configKeyValDataTmp);
+      console.log("------");
+      console.log(configIdDataTmp);
       this.configKeyValData = {};
       if (configKeyValDataTmp != null) {
         this.configKeyValData = configKeyValDataTmp;
@@ -304,16 +310,17 @@ export default {
           console.log(error);
           thisVar.$message.error("网络错误");
         });
-    },configKeyValSaveUpdateFun: function() {
+    },
+    configKeyValSaveUpdateFun: function() {
       const qs = require("qs");
       var thisVar = this;
       let data = {
         configId: this.configIdData,
         id: this.configKeyValData.id,
-        name:this.configKeyValData.name,
+        name: this.configKeyValData.name,
         val: this.configKeyValData.val,
         val1: this.configKeyValData.val1,
-        val2: this.configKeyValData.val2,
+        val2: this.configKeyValData.val2
       };
 
       this.$http
@@ -367,6 +374,37 @@ export default {
           thisVar.loading = false;
           if (response.data.ok) {
             thisVar.$message.success("创建【" + templateName + "】成功");
+          } else {
+            thisVar.$message.error(response.data.msg);
+          }
+        })
+        .catch(function(error) {
+          thisVar.loading = false;
+          console.log(error);
+          thisVar.$message.error("网络错误");
+        });
+    },
+    generateCodeJsonFun: function(templateInfo) {
+      var thisVar = this;
+      const qs = require("qs");
+
+      let data = {
+        projectId: thisVar.projectId,
+        tableName: thisVar.startGenerateCodeTableName,
+        templateId: templateInfo.template_id,
+        columnsListStr: JSON.stringify(templateInfo.columnsList)
+      };
+      let templateName = templateInfo.name;
+
+      thisVar.dataJsonStr = null;
+      this.$http
+        .post("/template/generateCodeJson", qs.stringify(data))
+        .then(function(response) {
+          thisVar.loading = false;
+          if (response.data.ok) {
+            thisVar.dataJsonStrVisible = true;
+            thisVar.dataJsonStr = response.data.data;
+            //thisVar.dataJsonStr = thisVar.formatJson(response.data.data)
           } else {
             thisVar.$message.error(response.data.msg);
           }
