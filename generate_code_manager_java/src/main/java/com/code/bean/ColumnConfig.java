@@ -1,7 +1,9 @@
 package com.code.bean;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -45,10 +47,6 @@ public class ColumnConfig {
 				}
 			}
 		}
-		// {config_name=注解, code=aa, checkVal=, config_id=1.0, project_id=1.0,
-		// configKeyValList=[{val=我勒个去, config_id=1.0, val2=1, val1=1, name=1, id=1.0,
-		// check=0.0}, {val=2, config_id=1.0, val2=1, val1=1, name=2222, id=2.0,
-		// check=0.0}], input_type=radio, checkValList=[]}
 	}
 	private List<Map<String, Object>> getCheckDate(List<Map<String, Object>> configKeyValList,List<Integer> checkValList){
 		List<Map<String, Object>> dataListTmp = new ArrayList<Map<String,Object>>();
@@ -78,12 +76,23 @@ public class ColumnConfig {
 			Map<String, Object> map = configKeyValList.get(i);
 			Integer id = Double.valueOf(String.valueOf(map.get("id"))).intValue();
 			if(checkVal.intValue() == id.intValue()) {
+				System.err.println(map);
+				try {
+					if(map.get("listImportPkg")!=null&&StrKit.notBlank(String.valueOf(map.get("listImportPkg")))) {
+						String [] listImportPkgTmp = String.valueOf(map.get("listImportPkg")).split("#");
+						listImportPkg.addAll(Arrays.asList(listImportPkgTmp));
+					}
+				} catch (Exception e) {
+				}
 				return map;
 			}
 		}
+		//给listImportPkg去重
+		listImportPkg = new ArrayList<String>(new HashSet<String>(listImportPkg));
 		return new HashMap<String, Object>();
 	}
 	private Map<String, Object> configMap = new HashMap<String, Object>();
+	private List<String> listImportPkg = new ArrayList<String>();//需要引入的package列表
 	public Map<String, Object> getConfigMap() {
 		return configMap;
 	}
@@ -94,5 +103,10 @@ public class ColumnConfig {
 	public String toString() {
 		return "ColumnConfig [configMap=" + configMap + "]";
 	}
-	
+	public List<String> getListImportPkg() {
+		return listImportPkg;
+	}
+	public void setListImportPkg(List<String> listImportPkg) {
+		this.listImportPkg = listImportPkg;
+	}
 }

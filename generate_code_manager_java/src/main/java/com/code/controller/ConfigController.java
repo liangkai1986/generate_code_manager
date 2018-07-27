@@ -121,6 +121,7 @@ public class ConfigController extends BaseController {
 		configKeyVal.setVal(getPara("val"));
 		configKeyVal.setVal1(getPara("val1"));
 		configKeyVal.setVal2(getPara("val2"));
+		configKeyVal.setListImportPkg(getPara("listImportPkg"));
 		// 判断唯一性
 		if (getPara("id") == null) {
 			configKeyVal.save();

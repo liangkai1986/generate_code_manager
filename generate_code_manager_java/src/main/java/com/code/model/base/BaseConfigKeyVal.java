@@ -72,4 +72,13 @@ public abstract class BaseConfigKeyVal<M extends BaseConfigKeyVal<M>> extends Mo
 		return getInt("check");
 	}
 
+	public M setListImportPkg(java.lang.String listImportPkg) {
+		set("listImportPkg", listImportPkg);
+		return (M)this;
+	}
+	
+	public java.lang.String getListImportPkg() {
+		return getStr("listImportPkg");
+	}
+
 }

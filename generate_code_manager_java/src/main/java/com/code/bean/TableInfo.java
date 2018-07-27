@@ -1,8 +1,11 @@
 package com.code.bean;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
+import java.util.Set;
 
 import com.code.util.GenerateCodeUtils;
 import com.jfinal.kit.StrKit;
@@ -14,17 +17,17 @@ public class TableInfo implements Serializable{
 	public TableInfo(Map<String, Object> baseTableInfoMap) {
 		setBaseTableInfoMap(baseTableInfoMap);
 	}
-	
 	/***
 		select * from information_schema.TABLES
 		where table_schema = 'generate_code_manager';
 	 */
-	private Map<String, Object> baseTableInfoMap ;//原始表信息
-	private String tableName;
-	private String tableComment;
-	private String entityName;
-	private String entityNameFirstUpperCase;
-	private List<ColumnInfo> listColumnInfo;
+	private Map<String, Object> baseTableInfoMap ;//原始表信息【上面这条sql查出来的信息】
+	private String tableName;//表名称
+	private String tableComment;//表备注
+	private String entityName;//实体类名称
+	private String entityNameFirstUpperCase;//实体类名称首字母大写
+	private List<ColumnInfo> listColumnInfo;//列信息
+	private List<String> listImportPkg=new ArrayList<String>();//需要引入的package列表
 	public String getTableName() {
 		return tableName;
 	}
@@ -48,6 +51,13 @@ public class TableInfo implements Serializable{
 	}
 	public void setListColumnInfo(List<ColumnInfo> listColumnInfo) {
 		this.listColumnInfo = listColumnInfo;
+		if(this.listColumnInfo!=null&&this.listColumnInfo.size()>0) {
+			Set<String> setTmp = new HashSet<String>();
+			for (int i = 0; i < listColumnInfo.size(); i++) {
+				setTmp.addAll(listColumnInfo.get(i).getListImportPkg());
+			}
+			listImportPkg.addAll(setTmp);
+		}
 	}
 	public static long getSerialversionuid() {
 		return serialVersionUID;
@@ -75,9 +85,11 @@ public class TableInfo implements Serializable{
 	public void setEntityNameFirstUpperCase(String entityNameFirstUpperCase) {
 		this.entityNameFirstUpperCase = entityNameFirstUpperCase;
 	}
-	
-	
-	
-	
+	public List<String> getListImportPkg() {
+		return listImportPkg;
+	}
+	public void setListImportPkg(List<String> listImportPkg) {
+		this.listImportPkg = listImportPkg;
+	}
 	
 }

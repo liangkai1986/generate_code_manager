@@ -141,6 +141,7 @@
                       <el-table-column prop="val" label="配置值-val" width="180"  header-align="center"></el-table-column>
                       <el-table-column prop="val1" label="配置值-va11" width="180"  header-align="center"></el-table-column>
                       <el-table-column prop="val2" label="配置值-val2" width="180"  header-align="center"></el-table-column>
+                      <el-table-column prop="listImportPkg" label="引入的pkg(#分割)" width="180"  header-align="center"></el-table-column>
                       
                       <el-table-column prop="jdbcUrl" label="操作" width="220"  header-align="center">
                         <template slot-scope="scope">
@@ -208,7 +209,9 @@
                 <el-form-item label="配置值-val2">
                     <el-input v-model="configKeyValData.val2"></el-input>
                 </el-form-item>
-      
+                <el-form-item label="引入的pkg(#分割)">
+                    <el-input v-model="configKeyValData.listImportPkg"></el-input>
+                </el-form-item>
                 <el-button type="primary" @click="configKeyValSaveUpdateFun">立即【创建/修改】</el-button>
               </el-form>
           </el-dialog>
@@ -320,7 +323,8 @@ export default {
         name: this.configKeyValData.name,
         val: this.configKeyValData.val,
         val1: this.configKeyValData.val1,
-        val2: this.configKeyValData.val2
+        val2: this.configKeyValData.val2,
+        listImportPkg:this.configKeyValData.listImportPkg
       };
 
       this.$http

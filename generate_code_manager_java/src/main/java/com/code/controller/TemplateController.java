@@ -18,7 +18,6 @@ import com.code.model.ConfigRecord;
 import com.code.model.JdbcConfig;
 import com.code.model.Project;
 import com.code.model.Template;
-import com.code.util.FormatJsonUtil;
 import com.code.util.FreemarkerUtil;
 import com.code.util.GCM_DB_util;
 import com.code.util.GsonUtil;

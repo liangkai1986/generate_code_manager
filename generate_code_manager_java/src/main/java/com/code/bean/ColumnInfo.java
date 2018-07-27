@@ -1,5 +1,8 @@
 package com.code.bean;
 
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Map;
 
 import org.apache.commons.lang3.StringUtils;
@@ -11,13 +14,19 @@ import com.code.util.SqlTypeUtil.MySqlTypeConvert;
 public class ColumnInfo {
 	/**
 	 * 这条sql查询出来的字段 SELECT
-	 *
-	 * 
 	 * FROM information_schema.COLUMNS WHERE table_schema = 'generate_code_manager'
 	 * and TABLE_NAME='jdbc_config';
 	 */
 	private Map<String, Object> baseCoumnInfoMap;// 原始字段信息
-
+	private boolean keyFlag = false;// 是否是主键
+	private String columnType;// 字段类型
+	private Integer columnTypeLength;// 字段类型长度
+	private String columnComment;// 字段备注
+	private String columnName;//字段名称
+	private boolean columnIsNull = false; // 字段是否可以为空 可以为空：true 不能为空：false
+	private String entityType;// 实体类类型
+	private ColumnConfig columnConfig;//配置
+	private List<String> listImportPkg = new ArrayList<String>();//需要引入的package列表
 	public ColumnInfo() {
 
 	}
@@ -30,7 +39,7 @@ public class ColumnInfo {
 			this.columnName = String.valueOf(this.baseCoumnInfoMap.get("COLUMN_NAME"));
 			this.keyFlag = this.baseCoumnInfoMap.get("EXTRA") != null;
 			this.columnIsNull = "YES"
-					.equalsIgnoreCase(GenerateCodeUtils.getToStr(this.baseCoumnInfoMap.get("COLUMN_COMMENT")));
+					.equalsIgnoreCase(GenerateCodeUtils.getToStr(this.baseCoumnInfoMap.get("IS_NULLABLE")));
 			// 根据这个map生成 对应的字段
 			this.columnComment = GenerateCodeUtils.getToStr(this.baseCoumnInfoMap.get("COLUMN_COMMENT"));
 			this.columnType = GenerateCodeUtils.getToStr(this.baseCoumnInfoMap.get("COLUMN_TYPE"));
@@ -43,21 +52,22 @@ public class ColumnInfo {
 				}
 			}
 			DbColumnType dbColumnType= new MySqlTypeConvert().processTypeConvert(this.columnType);
-//			System.err.print(dbColumnType.name());
-//			System.err.print(dbColumnType.getPkg());
-//			System.err.println(dbColumnType.getType());
-//			;
+			if(dbColumnType.getPkg()!=null) {
+				listImportPkg.add(dbColumnType.getPkg());
+			}
 		}
 	}
 
-	private boolean keyFlag = false;// 是否是主键
-	private String columnType;// 字段类型
-	private Integer columnTypeLength;// 字段类型长度
-	private String columnComment;// 字段备注
-	private String columnName;
-	private boolean columnIsNull = false; // 字段是否可以为空 可以为空：true 不能为空：false
-	private String entityType;// 实体类类型
-	private ColumnConfig columnConfig;//配置
+	
+	
+
+	public List<String> getListImportPkg() {
+		return listImportPkg;
+	}
+
+	public void setListImportPkg(List<String> listImportPkg) {
+		this.listImportPkg = listImportPkg;
+	}
 
 	public Map<String, Object> getBaseCoumnInfoMap() {
 		return baseCoumnInfoMap;
@@ -130,6 +140,10 @@ public class ColumnInfo {
 
 	public void setColumnConfig(ColumnConfig columnConfig) {
 		this.columnConfig = columnConfig;
+		if(columnConfig!=null) {
+			listImportPkg.addAll(columnConfig.getListImportPkg());
+			listImportPkg = new ArrayList<String>(new HashSet<String>(listImportPkg));
+		}
 	}
 
 	@Override
