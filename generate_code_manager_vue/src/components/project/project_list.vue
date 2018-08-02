@@ -26,7 +26,8 @@
                       <el-button @click="editFun(tableDataTmp.project_id)" type="primary" icon="el-icon-edit" circle>编辑</el-button>
                     </el-tooltip>
                     <el-tooltip class="item" effect="dark" content="生成代码的操作" placement="top-start">
-                      <router-link  to="/tableInfoList?id=1" target="_blank"><el-button type="success" round>代码生成操作</el-button></router-link>
+                      
+                      <router-link  :to="{path:'/tableInfoList',query:{id:tableDataTmp.project_id}}" target="_blank"><el-button type="success" round>代码生成操作</el-button></router-link>
                     </el-tooltip>
                   </el-row>
               </el-card>

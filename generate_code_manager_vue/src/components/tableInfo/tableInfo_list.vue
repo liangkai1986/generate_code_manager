@@ -100,7 +100,7 @@
             <br/>
             <br/>
             <el-input placeholder="模板名称" v-model="item.name"  style="width:200px"></el-input>
-            <el-input placeholder="模板路径" v-model="item.path"  style="width:500px"></el-input>
+            <el-input placeholder="模板路径" v-model="item.path"  style="width:1500px"></el-input>
             <br/>
             <el-card class="box-card">
               <div slot="header" class="clearfix">
