@@ -155,6 +155,7 @@ public class TemplateController extends BaseController {
 		Template template = Template.dao.findById(getPara("templateId"));
 		// 数据
 		TableInfo tableInfo = generateBean();
+		System.out.println(FreemarkerUtil.createStr(template.getPath(), tableInfo));
 		FreemarkerUtil.createFile(template.getContent(), tableInfo,
 				FreemarkerUtil.createStr(template.getPath(), tableInfo));
 		renderJson(new ResultData());

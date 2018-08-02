@@ -71,7 +71,7 @@ public class TableInfo implements Serializable{
 			this.tableName = GenerateCodeUtils.getToStr(baseTableInfoMap.get("TABLE_NAME"));
 			this.tableComment = GenerateCodeUtils.getToStr(baseTableInfoMap.get("TABLE_COMMENT"));
 			this.entityName=GenerateCodeUtils.toCamelCase(this.tableName);
-			this.entityNameFirstUpperCase =StrKit.firstCharToLowerCase(this.entityName);
+			this.entityNameFirstUpperCase =StrKit.firstCharToUpperCase(this.entityName);
 		}
 	}
 	@Override

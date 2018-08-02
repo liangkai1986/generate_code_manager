@@ -110,7 +110,7 @@
               
             </el-card>
             <br/>
-            <textarea rows="50" cols="150" v-model="item.content"></textarea>
+            <textarea rows="50" cols="230" v-model="item.content"></textarea>
 
           </el-tab-pane>
        
