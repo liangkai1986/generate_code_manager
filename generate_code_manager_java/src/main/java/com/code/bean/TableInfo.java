@@ -28,6 +28,13 @@ public class TableInfo implements Serializable{
 	private String entityNameFirstUpperCase;//实体类名称首字母大写
 	private List<ColumnInfo> listColumnInfo;//列信息
 	private List<String> listImportPkg=new ArrayList<String>();//需要引入的package列表
+	
+	
+	private String keyColumnName;//主键 字段名称
+	private String keyColumnComment;//主键 字段备注
+	private String keyEntityName;//主键 实体类名称
+	private String keyEntityNameFirstUpperCase;//主键 实体类名称首字母大写
+	private String keyExtra;//主键 类型 auto_increment:主键自增 
 	public String getTableName() {
 		return tableName;
 	}
@@ -54,6 +61,13 @@ public class TableInfo implements Serializable{
 		if(this.listColumnInfo!=null&&this.listColumnInfo.size()>0) {
 			Set<String> setTmp = new HashSet<String>();
 			for (int i = 0; i < listColumnInfo.size(); i++) {
+				if("PRI".equalsIgnoreCase(listColumnInfo.get(i).getColumnKey())) {
+					this.keyColumnName=listColumnInfo.get(i).getColumnName();//主键 字段名称
+					this.keyColumnComment=listColumnInfo.get(i).getColumnComment();//主键 字段备注
+					this.keyEntityName=listColumnInfo.get(i).getEntityName();//主键 实体类名称
+					this.keyEntityNameFirstUpperCase=listColumnInfo.get(i).getEntityNameFirstUpperCase();//主键 实体类名称首字母大写
+					this.keyExtra = String.valueOf(listColumnInfo.get(i).getBaseCoumnInfoMap().get("EXTRA"));//主键 类型 auto_increment:主键自增 
+				}
 				setTmp.addAll(listColumnInfo.get(i).getListImportPkg());
 			}
 			listImportPkg.addAll(setTmp);
@@ -90,6 +104,36 @@ public class TableInfo implements Serializable{
 	}
 	public void setListImportPkg(List<String> listImportPkg) {
 		this.listImportPkg = listImportPkg;
+	}
+	public String getKeyColumnName() {
+		return keyColumnName;
+	}
+	public void setKeyColumnName(String keyColumnName) {
+		this.keyColumnName = keyColumnName;
+	}
+	public String getKeyColumnComment() {
+		return keyColumnComment;
+	}
+	public void setKeyColumnComment(String keyColumnComment) {
+		this.keyColumnComment = keyColumnComment;
+	}
+	public String getKeyEntityName() {
+		return keyEntityName;
+	}
+	public void setKeyEntityName(String keyEntityName) {
+		this.keyEntityName = keyEntityName;
+	}
+	public String getKeyEntityNameFirstUpperCase() {
+		return keyEntityNameFirstUpperCase;
+	}
+	public void setKeyEntityNameFirstUpperCase(String keyEntityNameFirstUpperCase) {
+		this.keyEntityNameFirstUpperCase = keyEntityNameFirstUpperCase;
+	}
+	public String getKeyExtra() {
+		return keyExtra;
+	}
+	public void setKeyExtra(String keyExtra) {
+		this.keyExtra = keyExtra;
 	}
 	
 }

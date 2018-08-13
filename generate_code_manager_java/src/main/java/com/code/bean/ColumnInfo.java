@@ -1,7 +1,6 @@
 package com.code.bean;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 
@@ -30,7 +29,9 @@ public class ColumnInfo {
 	private String entityNameFirstUpperCase;//实体类名称首字母大写
 	private ColumnConfig columnConfig;// 配置
 	private List<String> listImportPkg = new ArrayList<String>();// 需要引入的package列表
-
+	
+	
+	
 	public ColumnInfo() {
 
 	}
@@ -45,6 +46,7 @@ public class ColumnInfo {
 			this.entityNameFirstUpperCase =StrKit.firstCharToUpperCase(this.entityName);
 			
 			this.columnKey = String.valueOf(this.baseCoumnInfoMap.get("COLUMN_KEY"));
+
 			this.columnIsNull = "YES"
 					.equalsIgnoreCase(GenerateCodeUtils.getToStr(this.baseCoumnInfoMap.get("IS_NULLABLE")));
 			// 根据这个map生成 对应的字段
@@ -160,10 +162,10 @@ public class ColumnInfo {
 
 	public void setColumnConfig(ColumnConfig columnConfig) {
 		this.columnConfig = columnConfig;
-		if (columnConfig != null) {
-			listImportPkg.addAll(columnConfig.getListImportPkg());
-			listImportPkg = new ArrayList<String>(new HashSet<String>(listImportPkg));
-		}
+//		if (columnConfig != null) {
+//			listImportPkg.addAll(columnConfig.getListImportPkg());
+//			listImportPkg = new ArrayList<String>(new HashSet<String>(listImportPkg));
+//		}
 	}
 
 	@Override

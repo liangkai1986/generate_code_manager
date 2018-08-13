@@ -46,12 +46,10 @@
             字段配置
           </div>
 
-            <el-collapse  >
-
-              <el-collapse-item v-for="columnsItem in item.columnsList" :key="columnsItem.id" >
+            <el-collapse  v-model="is_show_collapse">
+              <el-collapse-item name="show_collapse_bool"  v-for="columnsItem in item.columnsList" :key="columnsItem.id" >
                 <template slot="title">
                   字段名：【{{columnsItem.columnInfo.columnName}}】     字段备注：【{{columnsItem.columnInfo.columnComment}}】
-                  
                 </template>
                 
                 <div>
@@ -239,6 +237,7 @@ export default {
   },
   data() {
     return {
+      is_show_collapse:'show_collapse_bool',
       addOrEditConfigFlag: false,
       addOrEditConfigKeyValFlag: false,
       //tmpData: null,
