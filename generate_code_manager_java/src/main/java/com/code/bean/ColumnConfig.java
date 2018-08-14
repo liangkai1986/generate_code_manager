@@ -57,7 +57,8 @@ public class ColumnConfig {
 			return dataListTmp;
 		}
 		for (int i = 0; i < checkValList.size(); i++) {
-			Map<String, Object> tmpMap = getRadioDate(configKeyValList, checkValList.get(i));
+			int checkValTmp = Double.valueOf(Double.parseDouble(String.valueOf(checkValList.get(i)))).intValue();
+			Map<String, Object> tmpMap = getRadioDate(configKeyValList,checkValTmp);
 			if(tmpMap!=null&&tmpMap.size()>0) {
 				dataListTmp.add(tmpMap);
 			}
