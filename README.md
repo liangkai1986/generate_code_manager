@@ -1,22 +1,26 @@
 # generate_code_manager
 
 #### 项目介绍
-一个代码生成器
+这是一个可配置的代码生成器   
+通过查询表字段和页面上的设置和自己实现的模板  动态生成对应的文件
+
+生成的java文件 代码有些凌乱需要手动的 alt+shift+f（格式化代码） & alt+shift+o(去掉多余的包)
 
 功能有：
 项目管理
 数据库连接管理
 模板管理
 配置管理
+代码生成
 
 
 #### 软件架构
-vue+jfinal+freemarker+
+vue+jfinal+freemarker
 
 
 #### 安装教程
 
-1. xxxx
+1. 
 2. xxxx
 3. xxxx
 
