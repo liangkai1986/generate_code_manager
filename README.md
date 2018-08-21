@@ -20,7 +20,9 @@ vue+jfinal+freemarker
 
 #### 安装教程
 
-1. 
+因为前段采用的是vue 所以需要先安装node.js
+https://nodejs.org/en/(node.js官网地址)
+1. 安装完成后  cmd 进入![输入图片说明](https://images.gitee.com/uploads/images/2018/0821/101326_ea2c4bc8_535567.png "屏幕截图.png") 这个 generate_code_manager_vue文件夹下面  执行npm install
 2. xxxx
 3. xxxx
 
