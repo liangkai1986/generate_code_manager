@@ -64,9 +64,9 @@
 
 ### 生成的java文件 代码有些凌乱需要手动的 
 
- **alt+shift+s+f（格式化代码） 
+ **alt+shift+s+f（格式化代码）**  
 
-ctrl+shift+o(把多引入的包去掉)** 
+ **ctrl+shift+o(把多引入的包去掉)** 
 
 
 ### 功能有：
@@ -92,7 +92,7 @@ ctrl+shift+o(把多引入的包去掉)**
 
 为什么这个代码生成器 我前后端分离而不是整合成一个项目了？
 
-现在基本上系统都是前后端分离了，加上我也想搞搞vue~
+现在基本上系统都是前后端分离了，加上我也想了解简单学习下vue~
 
 
 #### 安装教程
@@ -102,7 +102,12 @@ ctrl+shift+o(把多引入的包去掉)**
 因为前台采用的是vue 所以需要先安装node.js
 https://nodejs.org/en/  (node.js官网地址)
 
-1. 安装完成后  cmd 进入![输入图片说明](https://images.gitee.com/uploads/images/2018/0821/101326_ea2c4bc8_535567.png "屏幕截图.png") 这个 generate_code_manager_vue文件夹下面  执行npm install （下载vue依赖的组件）
+1. 安装完成后  cmd 进入
+
+![输入图片说明](https://images.gitee.com/uploads/images/2018/0821/101326_ea2c4bc8_535567.png "屏幕截图.png") 
+
+这个 generate_code_manager_vue文件夹下面  执行npm install （下载vue依赖的组件）
+
 
 2. 在执行 npm run dev (启动vue项目)
 
