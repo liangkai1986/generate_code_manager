@@ -119,7 +119,7 @@ https://nodejs.org/en/  (node.js官网地址)
 
 
 
-数据库位置：
+数据库位置：generate_code_manager\generate_code_manager_java\启动说明\generate_code_manager.sql
 
 有什么问题可以加群<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=97f1b0f6f636df40cceadad80a177d0439746b6d8f1ecf8ff1d428639ae61ba3"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="generate_code_manager群" title="generate_code_manager群">点我</a>
 
