@@ -18,24 +18,29 @@
 自己手写注解的话工作量有点大，我的内心是有点拒绝的 :grin: ，然后跟我们总监聊了下这个事，说实体类这块可以考虑代码生成器减轻重复性工作，姜还是老的辣哈。
 
 
+大家如果看过mybatis-plus的代码生成器的源码，就会发现代码生成用的velocity引擎，使用的话是new AutoGenerator()
 
-最后就看mybatis-plus的代码生成器的源码，发现代码生成用的velocity引擎，并且使用的话是new AutoGenerator()
-![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/135750_f4b0bf73_535567.png "屏幕截图.png")
-所以我只要继承AutoGenerator再重写getVelocityEngine方法即可
-![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/135912_d5b88986_535567.png "屏幕截图.png")
-![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/140017_596ddb67_535567.png "屏幕截图.png")
+所以我只要继承AutoGenerator再重写getVelocityEngine方法即可 最后使用的话new xxAutoGenerator()
 
-最后就形成了我们公司现在用的代码生成器 能生成单表的增删改查，并且实体类和controller都加上swagger注解
+![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/150917_a74aba16_535567.png "继承AutoGenerator")
+
+![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/151017_cfeb30a6_535567.png "重写getVelocityEngine方法")
+
+![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/150937_9e8a28ba_535567.png "最后使用的话new xxAutoGenerator()")
+
+最后就形成了现在用的代码生成器 能生成单表的增删改查，并且实体类和controller都加上swagger注解
+
+
 
 ### 但是开发途中也发现了很多可以改进的地方
  
 例如：包括但不限于
 
-有的字段需要加正则校验（手机号、邮箱、日期）
-
-有的字段需要判断唯一性 
+有些字段需要加正则校验（手机号、邮箱、日期）
 
 有的字段需要必填
+
+还有的字段需要加上判断唯一性的校验
 
 。。。
 
@@ -59,7 +64,9 @@
 
 ### 生成的java文件 代码有些凌乱需要手动的 
 
-alt+shift+s+f（格式化代码） & ctrl+shift+o(把多引入的包去掉)
+ **alt+shift+s+f（格式化代码） 
+
+ctrl+shift+o(把多引入的包去掉)** 
 
 
 ### 功能有：
@@ -89,7 +96,9 @@ alt+shift+s+f（格式化代码） & ctrl+shift+o(把多引入的包去掉)
 
 
 #### 安装教程
-前台：
+
+### 前台：
+
 因为前台采用的是vue 所以需要先安装node.js
 https://nodejs.org/en/  (node.js官网地址)
 
@@ -98,7 +107,8 @@ https://nodejs.org/en/  (node.js官网地址)
 2. 在执行 npm run dev (启动vue项目)
 
 
-后台：
+### 后台：
+
 1.eclipse导入generate_code_manager_java
 
 2.tomcat端口设置成8083【如果不用这个端口 可以改 generate_code_manager\generate_code_manager_vue\src\main.js 下面的axios.defaults.baseURL 这个配置即可】
