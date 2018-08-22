@@ -28,7 +28,7 @@
 
 ![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/150937_9e8a28ba_535567.png "最后使用的话new xxAutoGenerator()")
 
-最后就形成了现在用的代码生成器 能生成单表的增删改查，并且实体类和controller都加上swagger注解
+最后就形成了公司用的代码生成器了  能生成单张表的增删改查，并且实体类和controller都加上swagger注解
 
 
 
@@ -43,7 +43,6 @@
 还有的字段需要加上判断唯一性的校验
 
 。。。
-
 
 
  **这些都是我们手工需要增加的代码！！！** 
