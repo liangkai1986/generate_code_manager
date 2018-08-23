@@ -114,11 +114,9 @@ https://nodejs.org/en/  (node.js官网地址)
 有什么问题可以加群<a target="_blank" href="//shang.qq.com/wpa/qunwpa?idkey=97f1b0f6f636df40cceadad80a177d0439746b6d8f1ecf8ff1d428639ae61ba3"><img border="0" src="//pub.idqqimg.com/wpa/images/group.png" alt="generate_code_manager群" title="generate_code_manager群">点我</a>
 
 
-#### 使用说明
+#### 页面效果图
 
-1. xxxx
-2. xxxx
-3. xxxx
+
 
 
 
