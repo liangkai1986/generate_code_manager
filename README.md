@@ -18,17 +18,7 @@
 自己手写注解的话工作量有点大，我的内心是有点拒绝的 :grin: ，然后跟我们总监聊了下这个事，说实体类这块可以考虑代码生成器减轻重复性工作，姜还是老的辣哈。
 
 
-大家如果看过mybatis-plus的代码生成器的源码，就会发现代码生成用的velocity引擎，使用的话是new AutoGenerator()
-
-所以我只要继承AutoGenerator再重写getVelocityEngine方法即可 最后使用的话new xxAutoGenerator()
-
-![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/150917_a74aba16_535567.png "继承AutoGenerator")
-
-![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/151017_cfeb30a6_535567.png "重写getVelocityEngine方法")
-
-![输入图片说明](https://images.gitee.com/uploads/images/2018/0822/150937_9e8a28ba_535567.png "最后使用的话new xxAutoGenerator()")
-
-最后就形成了公司用的代码生成器了  能生成单张表的增删改查，并且实体类和controller都加上swagger注解
+看了mybatis-plus的代码生成器的代码后，要使用的话是new AutoGenerator()，代码生成用的velocity引擎，我把velocity的模板拷到自己的项目中，一个新的类继承了AutoGenerator 重写了velocity获取模板路径的方法，然后在自己项目中的模板 用velocity的语法写了能生成单张表的增删改查，并且实体类和controller都加上swagger注解
 
 
 
